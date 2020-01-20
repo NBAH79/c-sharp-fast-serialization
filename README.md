@@ -21,10 +21,12 @@ public NameOfYourStructure(byte[] B, uint offset = 0)
         }
 public int Send(NetworkStream nstream) { return new Frame<NameOfYourStructure>(this).Send(nstream); }
 ```
-And now you can send it to any stream by calling. (to the network or to a file)
+And now you can send it to any stream by calling
+```
 NameOfYourStructure.Send(NameOfYourStream);
-
-Any connection has a buffer where a frame or a packet is. So you can get the structure as well.
+```
+Or you can get the structure from any buffer.
+```
 NameOfYourStructure name=new NameOfYourStructure(B);
-
-! Be careful whith it's length. Always check it! This method works when the length of the structure is known!
+```
+<H1>! Be careful whith it's length. Always check it! This method works when the length of the structure is known!</H1>
