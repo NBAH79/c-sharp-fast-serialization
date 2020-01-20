@@ -5,20 +5,22 @@ You can recieve or send a structure with a stream. But you'l have a set of bytes
 Usage of the example:
 1. Create a c# NET project.
 2. Add:
+```
 using Fundamental;
 static unsafe void Main(string[] args)
 {
    new buffers().Test(1000000);
 }
-
+```
 The usage of #5 is the most interesting.
 Add to any structure the constructor and the function:
+```
 public NameOfYourStructure(byte[] B, uint offset = 0)
         {
             fixed (byte* ptr = &B[offset]) this = *(NameOfYourStructure*)ptr;
         }
 public int Send(NetworkStream nstream) { return new Frame<NameOfYourStructure>(this).Send(nstream); }
-
+```
 And now you can send it to any stream by calling. (to the network or to a file)
 NameOfYourStructure.Send(NameOfYourStream);
 
