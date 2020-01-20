@@ -3,7 +3,7 @@ The fastest way of the communication between a buffer and a structure
 
 usage:
 1. Create a c# NET project.
-2. Add a string to Main function
+2. Add:
 using Fundamental;
 static unsafe void Main(string[] args)
 {
