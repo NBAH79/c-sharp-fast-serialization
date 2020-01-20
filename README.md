@@ -1,5 +1,5 @@
 # Frame
-The fastest way of the communication between a buffer and a structure
+The fastest way of the communication between a buffer and a structure. Similar to serialization.
 
 usage:
 1. Create a c# NET project.
