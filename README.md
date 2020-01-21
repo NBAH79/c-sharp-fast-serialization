@@ -40,7 +40,7 @@ public interface IToBuffer
     
 public struct YourStructureName: IToBuffer
     {
-        public byte[] ToBuffer() { return new Frame<UDPDiagnostic>(this).Buffer(); }   
+        public byte[] ToBuffer() { return new Frame<YourStructureName>(this).Buffer(); }   
     }
     
 public void SendMessage<S>(ref IPEndPoint remote, S structure) where S:IToBuffer
