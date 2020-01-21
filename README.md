@@ -30,3 +30,23 @@ Or you can get the structure from any buffer.
 NameOfYourStructure name=new NameOfYourStructure(B);
 ```
 <H1>! Be careful whith it's length. Always check it! This method works when the length of the structure is known!</H1>
+
+You can also add an interface with a contract to your structure
+```
+public interface IToBuffer
+    {
+        byte[] ToBuffer();
+    }
+    
+public struct YourStructureName: IToBuffer
+    {
+        public byte[] ToBuffer() { return new Extentions.Frame<UDPDiagnostic>(this).Buffer(); }   
+    }
+    
+public void SendMessage<S>(ref IPEndPoint remote, S structure) where S:IToBuffer
+    {
+        byte[] data=structure.ToBuffer();
+        try { point.Send(data, data.Length, remote); }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
+    }
+```
