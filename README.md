@@ -17,7 +17,7 @@ Add to any structure the constructor and the function:
 ```
 public NameOfYourStructure(byte[] B, uint offset = 0)
         {
-            fixed (byte* ptr = &B[offset]) this = *(NameOfYourStructure*)ptr;
+            fixed (byte* ptr = &B[offset]) this = *(NameOfYourStructure*)ptr; //copy
         }
 public int Send(NetworkStream nstream) { return new Frame<NameOfYourStructure>(this).Send(nstream); }
 ```
