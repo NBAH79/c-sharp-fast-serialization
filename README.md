@@ -52,6 +52,7 @@ public void SendMessage<S>(ref IPEndPoint remote, S structure) where S:IHaveABuf
 ```
 <H1> Inline </H1>
 The same as Frame but uses static functions. Works slower in Debug mode and saster in Release.
+
 ```
 public struct YourStructureName: IHaveABuffer
     {
