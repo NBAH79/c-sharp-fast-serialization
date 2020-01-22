@@ -33,20 +33,29 @@ NameOfYourStructure name=new NameOfYourStructure(B);
 
 You can also add an interface with a contract to your structure
 ```
-public interface IToBuffer
+public interface IHaveABuffer
     {
         byte[] ToBuffer();
     }
     
-public struct YourStructureName: IToBuffer
+public struct YourStructureName: IHaveABuffer
     {
         public byte[] ToBuffer() { return new Frame<YourStructureName>(this).Buffer(); }   
     }
     
-public void SendMessage<S>(ref IPEndPoint remote, S structure) where S:IToBuffer
+public void SendMessage<S>(ref IPEndPoint remote, S structure) where S:IHaveABuffer
     {
         byte[] data=structure.ToBuffer();
         try { point.Send(data, data.Length, remote); }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
 ```
+<H1> Inline </H1>
+The same as Frame but uses static functions. Works slower in Debug mode and saster in Release.
+```
+public struct YourStructureName: IHaveABuffer
+    {
+        public byte[] ToBuffer() { return Inline.Serialize<YourStructureName>(this); }   
+    }
+```
+
