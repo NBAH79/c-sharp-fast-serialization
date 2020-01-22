@@ -56,7 +56,7 @@ The same as Frame but uses static functions. Works slower in Debug mode and sast
 ```
 public struct YourStructureName: IHaveABuffer
     {
-        public byte[] ToBuffer() { return Inline.Serialize<YourStructureName>(this); }   
+        public byte[] ToBuffer() { return Inline.Serialize(this); }   
     }
 ```
 
