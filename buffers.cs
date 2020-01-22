@@ -180,10 +180,10 @@ namespace Fundamental
 
             for (int n = 0; n < iterations; n++)
             {
-                s = Inline2.Deserialize<Struct>(buffer_in);
+                s = Inline.Deserialize<Struct>(buffer_in);
                 s.out1 = s.in1 + s.in2;
                 s.out2 = s.in1 - s.in2;
-                buffer_out = Inline2.Serialize<Struct>(s);
+                buffer_out = Inline.Serialize<Struct>(s);
             }
             sw.Stop();
             Console.WriteLine("inline " + sw.ElapsedTicks.ToString());
