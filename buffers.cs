@@ -29,6 +29,22 @@ namespace Fundamental
        // public int Write(FileStream fstream) { if (fstream == null) return -1; fstream.Write(buffer, 0, buffer.Length); return 0; }
        // public int Send(NetworkStream nstream) { if (nstream == null) return -1; nstream.Write(buffer, 0, buffer.Length); return 0; }
     }
+    
+    public static class Inline
+    {
+        public unsafe static byte[] Serialize<T>(T any, uint offset = 0) where T : unmanaged
+        {
+            byte[] buffer = new byte[sizeof(T) + offset];
+            fixed (byte* ptr = &buffer[offset]) { *(T*)ptr = any; }
+            return buffer;
+        }
+
+        public unsafe static T Deserialize<T>(byte[] buffer, uint offset = 0) where T : unmanaged
+        {
+            if (buffer.Length + offset < sizeof(T)) return default;//throw new Exception("Deserializatoin failed!");
+            fixed (byte* ptr = &buffer[offset]) { return *(T*)ptr; }
+        }
+    }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
     public unsafe struct Struct
@@ -157,6 +173,20 @@ namespace Fundamental
             }
             sw.Stop();
             Console.WriteLine("template " + sw.ElapsedTicks.ToString());
+            sw.Reset();
+            System.Threading.Thread.Sleep(3000);
+            sw.Start();
+
+
+            for (int n = 0; n < iterations; n++)
+            {
+                s = Inline2.Deserialize<Struct>(buffer_in);
+                s.out1 = s.in1 + s.in2;
+                s.out2 = s.in1 - s.in2;
+                buffer_out = Inline2.Serialize<Struct>(s);
+            }
+            sw.Stop();
+            Console.WriteLine("inline " + sw.ElapsedTicks.ToString());
         }
     }
 }
