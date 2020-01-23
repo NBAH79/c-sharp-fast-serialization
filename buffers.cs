@@ -41,7 +41,7 @@ namespace Fundamental
 
         public unsafe static T Deserialize<T>(byte[] buffer, uint offset = 0) where T : unmanaged
         {
-            if (buffer.Length + offset < sizeof(T)) return default;//throw new Exception("Deserializatoin failed!");
+            if (buffer.Length - offset < sizeof(T)) return default;//throw new Exception("Deserializatoin failed!");
             fixed (byte* ptr = &buffer[offset]) { return *(T*)ptr; }
         }
     }
